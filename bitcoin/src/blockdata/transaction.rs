@@ -1702,7 +1702,7 @@ mod tests {
 
         match error {
             TxVerifyError::ScriptVerification(_) => {}
-            _ => panic!("wrong error type"),
+            _ => unreachable!("wrong error type"),
         }
     }
 

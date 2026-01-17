@@ -1623,7 +1623,7 @@ mod tests {
                 assert_eq!(inner.invalid_base58_payload_length(), 22); // Payload size
                 assert_ne!(inner.invalid_base58_payload_length(), encoded.len()); // Not string size
             }
-            other => panic!("unexpected error: {other:?}"),
+            other => unreachable!("unexpected error: {other:?}"),
         }
     }
 }

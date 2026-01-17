@@ -393,7 +393,7 @@ mod test {
             Network::Testnet(TestnetVersion::V4) => {},
             Network::Signet => {},
             Network::Regtest => {},
-            _ => panic!("update ChainHash::using_genesis_block and chain_hash_and_genesis_block with new variants"),
+            _ => unreachable!("update ChainHash::using_genesis_block and chain_hash_and_genesis_block with new variants"),
         }
     }
 

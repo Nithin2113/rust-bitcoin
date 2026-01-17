@@ -586,7 +586,7 @@ mod tests {
         // test with zero target
         match some_header.validate_pow(Target::ZERO) {
             Err(ValidationError::BadTarget) => (),
-            _ => panic!("unexpected result from validate_pow"),
+            _ => unreachable!("unexpected result from validate_pow"),
         }
 
         // test with modified header
@@ -594,7 +594,7 @@ mod tests {
         invalid_header.version = Version::from_consensus(invalid_header.version.to_consensus() + 1);
         match invalid_header.validate_pow(invalid_header.target()) {
             Err(ValidationError::BadProofOfWork) => (),
-            _ => panic!("unexpected result from validate_pow"),
+            _ => unreachable!("unexpected result from validate_pow"),
         }
     }
 

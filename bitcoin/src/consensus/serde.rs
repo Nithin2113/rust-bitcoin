@@ -167,7 +167,7 @@ impl<'a, T: 'a + Encodable, E: ByteEncoder> fmt::Display for DisplayWrapper<'a, 
                     || error.get_ref().is_some()
                     || !writer.writer.was_error
                 {
-                    panic!(
+                    unreachable!(
                         "{} returned an unexpected error: {:?}",
                         core::any::type_name::<T>(),
                         error
@@ -206,7 +206,7 @@ impl<W: fmt::Write> ErrorTrackingWriter<W> {
         #[cfg(debug_assertions)]
         {
             if self.was_error {
-                panic!("`{}` called on errored writer", fun);
+                unreachable!("`{}` called on errored writer", fun);
             }
         }
         #[cfg(not(debug_assertions))]
@@ -217,7 +217,7 @@ impl<W: fmt::Write> ErrorTrackingWriter<W> {
         #[cfg(debug_assertions)]
         {
             if !self.was_error {
-                panic!("{} returned an error unexpectedly", core::any::type_name::<Offender>());
+                unreachable!("{} returned an error unexpectedly", core::any::type_name::<Offender>());
             }
         }
     }
@@ -444,11 +444,11 @@ impl<E> With<E> {
             match (result, writer.error) {
                 (Ok(_), None) => writer.serializer.end(),
                 (Ok(_), Some(error)) =>
-                    panic!("{} silently ate an I/O error: {:?}", core::any::type_name::<T>(), error),
+                    unreachable!("{} silently ate an I/O error: {:?}", core::any::type_name::<T>(), error),
                 (Err(io_error), Some(ser_error))
                     if io_error.kind() == io::ErrorKind::Other && io_error.get_ref().is_none() =>
                     Err(ser_error),
-                (Err(io_error), ser_error) => panic!(
+                (Err(io_error), ser_error) => unreachable!(
                     "{} returned an unexpected I/O error: {:?} serialization error: {:?}",
                     core::any::type_name::<T>(),
                     io_error,
